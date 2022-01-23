@@ -1,0 +1,62 @@
+captainVersion: 4
+services:
+    $$cap_appname:
+        # image: nativeit/portainer-tools:$$cap_portainer-tools-version
+        image: technorabilia/portainer-tools
+        volumes:
+            - $$cap_appname-config:/config
+        restart: unless-stopped
+        environment:
+            PUID: $$cap_puid
+            PGID: $$cap_pgid
+            SERVER_URL: $$-cap_server-url
+            PORTAINER_URL: $$-cap_portainer-url:9000
+            PORTAINER_USERNAME: $$-cap_portainer-user
+            PORTAINER_PASSWORD: $$-cap_portainer-pass
+        caproverExtra:
+            containerHttpPort: '9999'
+caproverOneClickApp:
+    variables:
+        - id: $$cap_portainer-tools-version
+          label: Version Tag
+          description: 'Check out their Docker page for the valid tags: https://hub.docker.com/repository/docker/nativeit/portainer-tools'
+          defaultValue: '0.1.0'
+          validRegex: /^([^\s^\/])+$/
+        - id: '$$cap_puid'
+          label: Server User UserID
+          defaultValue: 1000
+          description: 'UserID to avoid permission problems, please refer to docs- https://docs.linuxserver.io/general/understanding-puid-and-pgid'
+          validRegex: /[0-9]/
+        - id: '$$cap_pgid'
+          label: Server User GroupID
+          defaultValue: 1000
+          description: 'GroupID to avoid permission problems, please refer to docs- https://docs.linuxserver.io/general/understanding-puid-and-pgid'
+          validRegex: /[0-9]/
+        - id: '$$-cap_server-url'
+          label: Server URL
+          defaultValue: ''
+          description: 'URL to server hosting Portainer'
+        - id: '$$-cap_portainer-url'
+          label: Portainer URL
+          defaultValue: ''
+        - id: '$$-cap_portainer-user'
+          label: Portainer Username
+          defaultValue: ''
+          description: 'Username for Portainer with permissions for updating settings.'
+        - id: '$$-cap_portainer-pass'
+          label: Portainer Password
+          defaultValue: ''
+          description: 'Password for Portainer with permissions for updating settings.'
+    instructions:
+        start: |
+            Portainer Tools is a small utility designed to help merge multiple Portainer app templates into a single repository so there's no need to swap between them.
+
+            Enter your desired app name, username, and password and click on next. It will take about a minute for the process to finish.
+        end: |
+            Portainer Tools has been deployed and can be accessed at **$$cap_appname.$$cap_root_domain**. Enabling https is recommended.
+
+            See https://www.technorabilia.com/portainer-tools-merge-and-host-app-template-definitions/ for complete documentation.
+    displayName: 'Portainer Tools'
+    isOfficial: false
+    description: Portainer Tools is a small utility designed to help merge multiple Portainer app templates.
+    documentation: Taken from https://www.technorabilia.com/portainer-tools-merge-and-host-app-template-definitions/

@@ -3,3 +3,9 @@
 venv
 *.pyc
 *.db
+caprover/.DS_Store
+caprover/one-click-apps/.DS_Store
+.gitignore
+caprover/one-click-apps/public/v4/.DS_Store
+caprover/one-click-apps/public/.DS_Store
+.DS_Store

@@ -1,0 +1,17 @@
+version: '3.3'
+services:
+    portainer-tools:
+        container_name: portainer-tools
+        environment:
+            - PUID=<puid>
+            - PGID=<pgid>
+            - SERVER_URL=<application url>
+            - PORTAINER_URL=<portainer url>
+            - PORTAINER_USERNAME=<portainer username>
+            - PORTAINER_PASSWORD=<portainer password>
+        ports:
+            - <port on host>:9999
+        volumes:
+            - <path to config on host>:/config
+        restart: unless-stopped
+        image: technorabilia/portainer-tools
